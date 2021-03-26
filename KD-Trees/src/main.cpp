@@ -8,10 +8,9 @@ int main() {
 	std::vector<int> three{3, 5};
 	
 	
-	KD* foo = new KD();
-	foo->setRoot(one);
-	
+	KD* foo = new KD(one);
 	foo->printNodes();
+	
 	foo->add(two);
 
 	return 0;

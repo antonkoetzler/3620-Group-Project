@@ -2,20 +2,11 @@
 #include <vector>
 #include "KD.h"
 
-KD::KD() {
-	left = nullptr;
-	right = nullptr;
-}
-
-KD::KD(std::vector<int> root) {
+KD::KD(std::vector<int> newData) {
 	left = nullptr;
 	right = nullptr;
 	
-	data = root;
-}
-
-void KD::setRoot(std::vector<int> rootNode) {
-	data = rootNode;
+	data = newData;
 }
 
 void KD::add(std::vector<int> data) {
@@ -27,5 +18,12 @@ void KD::add(std::vector<int> data) {
 }
 
 void KD::printNodes() {
-	if
+	for (int i = 0; i < int(data.size()); i++) {
+		if(i != int(data.size()) - 1)
+			std::cout << data[i] << ", ";
+		else
+			std::cout << data[i];
+	} std::cout << std::endl;
+
+	std::cout << std::endl;
 }

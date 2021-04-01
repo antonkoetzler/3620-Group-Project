@@ -12,6 +12,17 @@ KD::KD()
 	level = 0;
 }
 
+KD::KD(std::vector<int> newData)
+{
+	prev = nullptr;
+	left = nullptr;
+	right = nullptr;
+
+	level = 0;
+
+	data = newData;
+}
+
 KD::KD(std::vector<int> newData, KD* previousNode)
 {
 	prev = previousNode; // Establish the parent node
@@ -37,17 +48,38 @@ void KD::add(std::vector<int> newData)
 	if (level == 0 && data.empty())
 	{
 		data = newData;
+		std::cout << "WORKING" << std::endl;
 	}
 	else
 	{
-		// Coordinate to compare
+		// Which coordinate on what level to compare
 		int dataCompare = level % int(data.size());
+		std::cout << "dataCompare: " << dataCompare << std::endl;
 
-		// Left child placement
-		/*
+		// Left child detection
+		if (newData[dataCompare] < data[dataCompare])
+		{
+			if (left != nullptr)
+				left->add(newData);
+			else {
+				left = new KD(newData, this);
 
-		YOU ARE HERE
+				std::cout << "LEFT DATA: " << std::endl;
+				std::cout << left->getData()[0] << ", " << left->getData()[1] << std::endl;
+			}
+		}
 
-		*/
+		// Right child detection
+		if (newData[dataCompare] >= data[dataCompare])
+		{
+			if (right != nullptr)
+				right->add(newData);
+			else {
+				right = new KD(newData, this);
+
+				std::cout << "RIGHT DATA: " << std::endl;
+				std::cout << right->getData()[0] << ", " << right->getData()[1] << std::endl;
+			}
+		}
 	}
 }

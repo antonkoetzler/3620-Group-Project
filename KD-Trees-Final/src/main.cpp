@@ -9,16 +9,18 @@ int main()
 	std::cout << "KD-Tree Program" << std::endl;
 	std::cout << std::endl;
 
-	std::vector<int> one{5, 2};
-	std::vector<int> two{3, 6};
-	std::vector<int> three{4, 8};
-
+	// TESTING
 	KD* tree = new KD();
+
+	// Sample vectors
+	std::vector<int> one{5,2};
+	std::vector<int> two{3, 6};
+
 	tree->add(one);
 	tree->add(two);
-	tree->add(three);
 
 	return 0;
+	//
 }
 
 void extractInformation(KD* tree)

@@ -8,6 +8,7 @@ class KD
 public:
 	// Constructors
 	KD(); // Empty KD-Tree object
+	KD(std::vector<int>); // KD-Tree with root node
 	KD(std::vector<int>, KD*); // Child node
 
 	// Getters

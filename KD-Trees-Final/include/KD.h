@@ -6,28 +6,27 @@
 class KD
 {
 public:
-	// Constructors
-	KD(); // Empty KD-Tree object
-	KD(std::vector<int>); // KD-Tree with root node
+	KD(); // Empty tree, if we use fstream
+	KD(std::vector<int>); // Root node
 	KD(std::vector<int>, KD*); // Child node
 
-	// Getters
-	int getLevel();
-	std::vector<int> getData();
-
 	// Allocation
-	void add(std::vector<int>);
+	void add(std::vector<int> newData);
+
+	// Getters
+	std::vector<int> getData();
+	int getLevel();
+
+	// Printing
+	void printNodes();
+	std::vector<bool> printChildren();
 
 private:
-	std::vector<int> data; // Our information
+	std::vector<int> data;
 
-	// Parent node
 	KD* prev;
-
-	// Child nodes
 	KD* left;
 	KD* right;
 
-	// Level of the tree node is at
-	int level;
+	int level; // Height of the node (to the tree)
 };

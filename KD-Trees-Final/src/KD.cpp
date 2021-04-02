@@ -2,40 +2,64 @@
 
 KD::KD()
 {
-	// Make every member KD* nullptr,
-	// since we're at the root
 	prev = nullptr;
 	left = nullptr;
 	right = nullptr;
 
-	// Make level 0, the top of the tree
 	level = 0;
 }
 
-KD::KD(std::vector<int> newData)
+KD::KD (std::vector<int> newData)
 {
-	prev = nullptr;
-	left = nullptr;
-	right = nullptr;
-
-	level = 0;
-
 	data = newData;
-}
 
-KD::KD(std::vector<int> newData, KD* previousNode)
-{
-	prev = previousNode; // Establish the parent node
-
+	prev = nullptr;
 	left = nullptr;
 	right = nullptr;
 
-	level = previousNode->getLevel() + 1; // Always + 1
+	level = 0;
 }
 
-int KD::getLevel()
+KD::KD (std::vector<int> newData, KD* parent)
 {
-	return level;
+	data = newData;
+
+	prev = parent;
+	left = nullptr;
+	right = nullptr;
+
+	level = parent->getLevel() + 1;
+}
+
+
+void KD::add(std::vector<int> newData)
+{
+	// Checking the root node
+	if (data.empty())
+		data = newData;
+	else
+	{
+		// Setting what coordinate to compare
+		int dataCompare = level % int(data.size());
+
+		// Left child detection
+		if (newData[dataCompare] < data[dataCompare])
+		{
+			if (left == nullptr)
+				left = new KD(newData, this);
+			else
+				left->add(newData);
+		}
+
+		// Right child detection
+		else if (newData[dataCompare] >= data[dataCompare])
+		{
+			if (right == nullptr)
+				right = new KD(newData, this);
+			else
+				right->add(newData);
+		}
+	}
 }
 
 std::vector<int> KD::getData()
@@ -43,43 +67,56 @@ std::vector<int> KD::getData()
 	return data;
 }
 
-void KD::add(std::vector<int> newData)
+int KD::getLevel()
 {
-	if (level == 0 && data.empty())
+	return level;
+}
+
+void KD::printNodes()
+{
+	// Here, we're creating a vector to
+	// see what nodes were nullptrs, for
+	// traversal of next height
+	std::vector<bool> edgesStored;
+
+	// Printing the root node
+	if (prev == nullptr)
 	{
-		data = newData;
-		std::cout << "WORKING" << std::endl;
+		std::cout << data[0] << ", " << data[1] << std::endl;
+
+		edgesStored = this->printChildren();
 	}
-	else
+
+
+}
+
+std::vector<bool> KD::printChildren()
+{
+	std::vector<bool> edgesStored;
+
+	if (left != nullptr && right != nullptr)
 	{
-		// Which coordinate on what level to compare
-		int dataCompare = level % int(data.size());
-		std::cout << "dataCompare: " << dataCompare << std::endl;
+		std::cout << left->getData()[0] << ", " << left->getData()[1] << "   ";
+		std::cout << right->getData()[0] << ", " << right->getData()[1] << std::endl;
 
-		// Left child detection
-		if (newData[dataCompare] < data[dataCompare])
-		{
-			if (left != nullptr)
-				left->add(newData);
-			else {
-				left = new KD(newData, this);
-
-				std::cout << "LEFT DATA: " << std::endl;
-				std::cout << left->getData()[0] << ", " << left->getData()[1] << std::endl;
-			}
-		}
-
-		// Right child detection
-		if (newData[dataCompare] >= data[dataCompare])
-		{
-			if (right != nullptr)
-				right->add(newData);
-			else {
-				right = new KD(newData, this);
-
-				std::cout << "RIGHT DATA: " << std::endl;
-				std::cout << right->getData()[0] << ", " << right->getData()[1] << std::endl;
-			}
-		}
+		edgesStored.push_back(true); edgesStored.push_back(true);
 	}
+
+	else if (left != nullptr && right == nullptr) {
+		std::cout << left->getData()[0] << ", " << left->getData()[1] << std::endl;
+
+		edgesStored.push_back(true); edgesStored.push_back(false);
+	}
+
+	else if (left == nullptr && right != nullptr) {
+		std::cout << right->getData()[0] << ", " << right->getData()[0] << std::endl;
+
+		edgesStored.push_back(false); edgesStored.push_back(true);
+	}
+
+	else {
+		edgesStored.push_back(false); edgesStored.push_back(true);
+	}
+
+	return edgesStored;
 }

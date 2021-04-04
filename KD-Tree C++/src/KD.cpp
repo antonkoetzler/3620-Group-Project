@@ -84,16 +84,18 @@ void KD::printNodes()
 	{
 		std::cout << data[0] << ", " << data[1] << std::endl;
 
-		this->BFSSearch(edgesStored, level + 1);
+		this->findChildren(edgesStored);
 		this->printChildren(edgesStored);
 	}
+
+	edgesStored = this->horizontalFind(edgesStored);
 
 	std::cout << "SIZE: " << edgesStored.size() << std::endl;
 
 	//prev->left->printChildren(); // !!!!!
 }
 
-void KD::BFSSearch(std::vector<bool> &edgesStored, int level)
+void KD::findChildren(std::vector<bool> &edgesStored)
 {
 	if (left != nullptr && right != nullptr)
 	{
@@ -118,6 +120,25 @@ void KD::BFSSearch(std::vector<bool> &edgesStored, int level)
 		edgesStored.push_back(false);
 		edgesStored.push_back(false);
 	}
+}
+
+std::vector<bool> KD::horizontalFind(std::vector<bool> edgesStored)
+{
+	std::vector<bool> newChildren;
+
+	for (int i = 0; i < int(edgesStored.size()); i++)
+	{
+		if (edgesStored[i] % 2 == 0)
+		{
+			std::cout << "Even" << std::endl;
+		}
+		else if (edgesStored[i] % 2 == 1)
+		{
+			std::cout << "Odd" << std::endl;
+		}
+	}
+
+	return newChildren;
 }
 
 void KD::printChildren(std::vector<bool> edgesStored)

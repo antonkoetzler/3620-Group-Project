@@ -19,7 +19,10 @@ public:
 
 	// Printing
 	void printNodes();
-	void BFSSearch(std::vector<bool>&, int);
+
+	void findChildren(std::vector<bool>&);
+	std::vector<bool> horizontalFind(std::vector<bool>);
+
 	void printChildren(std::vector<bool>);
 
 private:

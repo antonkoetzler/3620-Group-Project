@@ -19,7 +19,8 @@ public:
 
 	// Printing
 	void printNodes();
-	std::vector<bool> printChildren();
+	void BFSSearch(std::vector<bool>&, int);
+	void printChildren(std::vector<bool>);
 
 private:
 	std::vector<int> data;

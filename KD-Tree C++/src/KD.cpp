@@ -84,39 +84,53 @@ void KD::printNodes()
 	{
 		std::cout << data[0] << ", " << data[1] << std::endl;
 
-		edgesStored = this->printChildren();
+		this->BFSSearch(edgesStored, level + 1);
+		this->printChildren(edgesStored);
 	}
 
+	std::cout << "SIZE: " << edgesStored.size() << std::endl;
 
+	//prev->left->printChildren(); // !!!!!
 }
 
-std::vector<bool> KD::printChildren()
+void KD::BFSSearch(std::vector<bool> &edgesStored, int level)
 {
-	std::vector<bool> edgesStored;
-
 	if (left != nullptr && right != nullptr)
 	{
-		std::cout << left->getData()[0] << ", " << left->getData()[1] << "   ";
-		std::cout << right->getData()[0] << ", " << right->getData()[1] << std::endl;
-
-		edgesStored.push_back(true); edgesStored.push_back(true);
+		edgesStored.push_back(true);
+		edgesStored.push_back(true);
 	}
 
-	else if (left != nullptr && right == nullptr) {
-		std::cout << left->getData()[0] << ", " << left->getData()[1] << std::endl;
-
-		edgesStored.push_back(true); edgesStored.push_back(false);
+	else if (left != nullptr && right == nullptr)
+	{
+		edgesStored.push_back(true);
+		edgesStored.push_back(false);
 	}
 
-	else if (left == nullptr && right != nullptr) {
-		std::cout << right->getData()[0] << ", " << right->getData()[0] << std::endl;
-
-		edgesStored.push_back(false); edgesStored.push_back(true);
+	else if (left == nullptr && right != nullptr)
+	{
+		edgesStored.push_back(false);
+		edgesStored.push_back(true);
 	}
 
-	else {
-		edgesStored.push_back(false); edgesStored.push_back(true);
+	else if (left == nullptr && right == nullptr)
+	{
+		edgesStored.push_back(false);
+		edgesStored.push_back(false);
 	}
+}
 
-	return edgesStored;
+void KD::printChildren(std::vector<bool> edgesStored)
+{
+	for (int i = 0; i < int(edgesStored.size()); i++)
+	{
+		if (edgesStored[i] && (i % 2) == 0)
+			std::cout << left->getData()[0] << ", " << left->getData()[1];
+		if (edgesStored[i] && (i % 2) == 1)
+			std::cout << "   " << right->getData()[0] << ", " << right->getData()[1];
+		if (!edgesStored[i])
+			std::cout << "   ";
+	}
+	
+	std::cout << std::endl; std::cout << std::endl;
 }

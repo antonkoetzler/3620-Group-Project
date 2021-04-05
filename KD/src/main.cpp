@@ -1,23 +1,20 @@
-/*
-TODO LIST
-1) Insert
-2) Search (, and return)
-*/
-
-
 #include "KD.h"
 #include <fstream>
+#include <time.h>
 
 void extractInformation(KD*);
 
 int main()
 {
+	clock_t timer = clock();
+
 	KD* tree = new KD();
 
 	extractInformation(tree);
 
 	tree->deleteMin();
 
+	printf("Time taken: %.2fs\n", (double)(clock() - timer)/CLOCKS_PER_SEC);
 	return 0;
 }
 

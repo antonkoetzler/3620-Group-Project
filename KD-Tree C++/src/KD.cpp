@@ -63,6 +63,40 @@ void KD::add(std::vector<int> newData)
 	}
 }
 
+void KD::deleteMin()
+{
+	int dataCompare = level % int(data.size());
+
+	data.clear();
+
+	if (left != nullptr && right != nullptr)
+	{
+		// Left replacement
+		if (left->getData()[dataCompare] < right->getData()[dataCompare])
+		{
+			data = left->getData();
+			left->deleteMin();
+		}
+		else if (left->getData()[dataCompare] >= right->getData()[dataCompare])
+		{
+			data = right->getData();
+			right->deleteMin();
+		}
+	}
+	else if (left != nullptr && right == nullptr)
+	{
+		data = left->getData();
+		left->deleteMin();
+	}
+	else if (left == nullptr && right != nullptr)
+	{
+		data = right->getData();
+		right->deleteMin();
+	}
+	else
+		std::cout << "Root node deleted" << std::endl;
+}
+
 std::vector<int> KD::getData()
 {
 	return data;

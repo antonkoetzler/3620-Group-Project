@@ -16,6 +16,8 @@ int main()
 
 	extractInformation(tree);
 
+	tree->deleteMin();
+
 	return 0;
 }
 

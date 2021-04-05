@@ -12,6 +12,7 @@ public:
 
 	// Allocation
 	void add(std::vector<int> newData);
+	void deleteMin();
 
 	// Getters
 	std::vector<int> getData();

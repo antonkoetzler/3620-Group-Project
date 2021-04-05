@@ -17,14 +17,6 @@ public:
 	std::vector<int> getData();
 	int getLevel();
 
-	// Printing
-	void printNodes();
-
-	void findChildren(std::vector<bool>&);
-	std::vector<bool> horizontalFind(std::vector<bool>);
-
-	void printChildren(std::vector<bool>);
-
 private:
 	std::vector<int> data;
 

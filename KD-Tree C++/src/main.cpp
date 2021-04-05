@@ -16,8 +16,6 @@ int main()
 
 	extractInformation(tree);
 
-	tree->printNodes();
-
 	return 0;
 }
 
